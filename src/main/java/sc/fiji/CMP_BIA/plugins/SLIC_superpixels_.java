@@ -6,6 +6,7 @@ package sc.fiji.CMP_BIA.plugins;
 import java.awt.Color;
 
 import sc.fiji.CMP_BIA.segmentation.superpixels.jSLIC;
+import sc.fiji.CMP_BIA.tools.Logging;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.GenericDialog;
@@ -73,9 +74,9 @@ public class SLIC_superpixels_  implements PlugInFilter {
 		gd.addNumericField("Init. grid size: ", this.gSize, 0);
 		gd.addNumericField("Regularisation: ", this.regul, 2);
 		gd.addChoice("Overlap contours - colour:", clrStr, clrStr[0]);
-		gd.addCheckbox("Export segmentats as ROIs", true);
-		gd.addCheckbox("Show final segmentation", false);
-		gd.addCheckbox("Save segmentation into file", false);
+		gd.addCheckbox("Export segments as ROIs.", true);
+		gd.addCheckbox("Show final segmentation.", false);
+		gd.addCheckbox("Save segmentation into file.", false);
 		
 		// show the dialog and quit
 		gd.showDialog();
@@ -90,7 +91,7 @@ public class SLIC_superpixels_  implements PlugInFilter {
 		clrOverlay = clrs[ gd.getNextChoiceIndex() ];
 		showSegm = gd.getNextBoolean();
 		saveSegm = gd.getNextBoolean();
-		
+				
 		return true;
 	}
 
@@ -107,7 +108,14 @@ public class SLIC_superpixels_  implements PlugInFilter {
 		// if the user clicks "OK"
 		if ( showDialog() ) {		
 			
-			process();
+			try {
+				image.lock();
+				process();
+				image.unlock();
+			} catch (Exception e) {
+			} finally {
+				image.unlock();
+			}
 			
 		}
 	}
@@ -119,7 +127,6 @@ public class SLIC_superpixels_  implements PlugInFilter {
 		// measure the processing time
 		long startTime, estimTime;
 		
-		this.image.lock();
 		IJ.showProgress(0.);
 
 		printInfo("SLIC initialisation...");
@@ -143,23 +150,23 @@ public class SLIC_superpixels_  implements PlugInFilter {
 					
 		printInfo("SLIC finished.");
 		IJ.showProgress(100.);
-		this.image.unlock();
 	}
 	
 	/**
 	 * used only for presenting the segmentation results
 	 */
 	protected void showSegmentation() {
-
-		//
+		// show the ROI in ROI manager
 		if (showROIs) {
 			ij.IJ.log(" -> show ROI manager");
 			sp.getSegmentation().showOverlapROIs(image);
 		}
+		// show the general Overlay
 		if (clrOverlay != null) {
 			ij.IJ.log(" -> show contour overlap");
 			sp.getSegmentation().showOverlapContours(image, clrOverlay);
 		}
+		// show the segments
 		if (showSegm) {
 			try {
 				// FIXME in case of gray images we cannot create colour segmentation mask
@@ -169,10 +176,12 @@ public class SLIC_superpixels_  implements PlugInFilter {
 				IJ.error("Your image is not RGB image.");
 			}	
 		}
+		// saving the segmentation into a file you chose
 		if (saveSegm) {
 			OpenDialog od = new OpenDialog("Save raw segmentation");
 			if (od.getPath() != null) {
-				ij.IJ.log("Export to file: "+od.getPath());
+				ij.IJ.log(" -> export to file: "+od.getPath());
+				Logging.logMsg(" -> export to file");
 				sp.getSegmentation().exportToFile( od.getPath() );
 			}
 		}

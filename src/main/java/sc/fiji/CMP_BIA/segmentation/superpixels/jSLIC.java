@@ -79,7 +79,7 @@ public class jSLIC {
 	// number of channel
 	protected int nbChannels = 3;
 	// precomputed distances
-	protected float[][] distGrid = null;
+	protected float[] distGrid = null;
 
 	// TODO - avoiding computations with real numbers
 	
@@ -168,8 +168,8 @@ public class jSLIC {
 	 * @param sizeTrashold says till which size superpixels will by terminated
 	 */
 	public void process (int grid, float reg, int maxIter, float sizeTrashold) {
-		this.gridSize = grid;
-		this.regul = reg;
+		this.gridSize = (grid < 5) ? 5 : grid;
+		this.regul = (reg < 0) ? 0 : reg;
 		// according the VLFeat library the regul is in range {0,1}
 		this.factor = (regul*regul) * (float)(gridSize);
 		float err, lastErr = Float.MAX_VALUE;
@@ -326,7 +326,7 @@ public class jSLIC {
 		if (distGrid == null || distGrid.length != sz) {
 			Logging.logMsg(" -> pre-computing the distance grid matrix...");
 			// if it is not for actual grid size
-			distGrid = new float[sz][sz];
+			distGrid = new float[sz*sz];
 			float dx, dy;
 			// fill the array
 			for (int x=0; x<sz; x++ ) {
@@ -334,7 +334,8 @@ public class jSLIC {
 					dx = x-gridSize+1;
 					dy = y-gridSize+1;
 					// compute position distance
-					distGrid[x][y] = ((dx*dx) + (dy*dy))  * factor;
+					//distGrid[x][y] = ((dx*dx) + (dy*dy))  * factor;
+					distGrid[x*sz +y] = ((dx*dx) + (dy*dy))  * factor;
 				}
 			}
 		}
@@ -345,6 +346,7 @@ public class jSLIC {
 	 */
 	protected void assignmentFast () {
 		int xB, xE, yB, yE, i, j;
+		int sz = 2*gridSize +1;
 		float dist, dL, dA, dB;
 		// temporary variables - differences
 		float distLAB;
@@ -367,11 +369,14 @@ public class jSLIC {
 			yE = Math.min((int)(clusterPosition[k][1]+gridSize), Height);
 
 			i=clusterPosition[k][0]-xB+gridSize;
-					
+								
 			// cycle over all pixels in 2*gridSize region
 			for (int x=xB; x<xE; x++, i-- ) {
 
 				j=clusterPosition[k][1]-yB+gridSize;
+				
+				//i = (clusterPosition[k][0]-x+gridSize) * gridSize;
+				//i += clusterPosition[k][1]-yB+gridSize;
 				
 				for (int y=yB; y<yE; y++, j-- ) {
 
@@ -384,7 +389,8 @@ public class jSLIC {
 					// by SLIC article
 					// dist = (float) Math.sqrt(distLAB + (distPos * Math.pow(regul/(float)gridSize, 2)));
 					// dist = (float) Math.sqrt(distLAB + (distPos * coef2));
-					dist = distLAB + distGrid[i][j];
+					//dist = distLAB + distGrid[i][j];
+					dist = distLAB + distGrid[i*sz +j];
 					// by gSLIC article
 					// dist = (float) (Math.sqrt(distLAB) + Math.sqrt(distPos) * (regul/(double)gridSize));
 										
@@ -689,7 +695,7 @@ class ThreadAssignment extends ThreadParticularImg2D {
     // grid size
     protected int gridSize;
     // precomputed distances
-    protected float[][] distGrid = null;
+    protected float[] distGrid = null;
     // estimated distances
     protected float[][] distances = null;
     // set range
@@ -706,7 +712,7 @@ class ThreadAssignment extends ThreadParticularImg2D {
      * @param dist - the internal distances
      * @param lab - given labelling
      */
-    public ThreadAssignment(final int[][][] im, final int gSize, final float[][] dGrid, final int[][] cPos, final int[][] cClr, final float[][] dist, int[][] lab) {
+    public ThreadAssignment(final int[][][] im, final int gSize, final float[] dGrid, final int[][] cPos, final int[][] cClr, final float[][] dist, int[][] lab) {
 		super(im, cPos, cClr, lab);
     	gridSize = gSize;
 		distGrid = dGrid;
@@ -733,9 +739,10 @@ class ThreadAssignment extends ThreadParticularImg2D {
      */
     @Override
     public void run() {  
-    	
-    	int xB, xE, yB, yE, i, j;
+    	// init
+    	int xB, xE, yB, yE, i;
 		float dist, dL, dA, dB;
+		int sz = 2*gridSize +1;
 		// temporary variables - differences
 		float distLAB;
 		            	
@@ -749,14 +756,17 @@ class ThreadAssignment extends ThreadParticularImg2D {
 			yB = Math.max(beginHeight, (int)(clusterPosition[k][1]-gridSize));
 			yE = Math.min((int)(clusterPosition[k][1]+gridSize), endHeight);
 
-			i=clusterPosition[k][0]-xB+gridSize;
-					
+			//i=clusterPosition[k][0]-xB+gridSize;
+			
 			// cycle over all pixels in 2*gridSize region
-			for (int x=xB; x<xE; x++, i-- ) {
+			for (int x=xB; x<xE; x++ ) {
 
-				j=clusterPosition[k][1]-yB+gridSize;
+				//j=clusterPosition[k][1]-yB+gridSize;
 				
-				for (int y=yB; y<yE; y++, j-- ) {
+				i = (clusterPosition[k][0]-x+gridSize) * sz;
+				i += clusterPosition[k][1]-yB+gridSize;
+				
+				for (int y=yB; y<yE; y++, i-- ) {
 
 					// faster then the for cycle...
 					dL = img[x][y][0]-clusterColour[k][0];
@@ -767,7 +777,8 @@ class ThreadAssignment extends ThreadParticularImg2D {
 					// by SLIC article
 					// dist = (float) Math.sqrt(distLAB + (distPos * Math.pow(regul/(float)gridSize, 2)));
 					// dist = (float) Math.sqrt(distLAB + (distPos * coef2));
-					dist = distLAB + distGrid[i][j];
+					//dist = distLAB + distGrid[i][j];
+					dist = distLAB + distGrid[i];
 					// by gSLIC article
 					// dist = (float) (Math.sqrt(distLAB) + Math.sqrt(distPos) * (regul/(double)gridSize));
 										
@@ -775,7 +786,7 @@ class ThreadAssignment extends ThreadParticularImg2D {
 					if (dist < distances[x][y]) {
 						labels[x][y] = k;
 						distances[x][y] = dist;
-					}	
+					}
 				}
 			}			
 		}

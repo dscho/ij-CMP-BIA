@@ -1,5 +1,7 @@
 = ImageJ plugins by CMP-BIA group =
 
+home: http://fiji.sc/CMP-BIA_tools
+
 == CMP-BIA ==
 
 We extend the ImageJ implementation by our java codes. This project mainly 
@@ -100,16 +102,10 @@ Basically we reimplemented the powerful Simple Linear Iterative Clustering (SLIC
 Further we did some other improvements in clustering speed and precision.
 
 ==== Reference ====
-Radhakrishna Achanta, Appu Shaji, Kevin Smith, Aurelien Lucchi, Pascal Fua, and Sabine S��sstrunk, 
+Radhakrishna Achanta, Appu Shaji, Kevin Smith, et al., 
 SLIC Superpixels Compared to State-of-the-art Superpixel Methods, 
 IEEE Transactions on Pattern Analysis and Machine Intelligence, 
 vol. 34, num. 11, p. 2274 - 2282, May 2012.
-
-==== TODO ====
-
-* extension for 3D
-* multi-threading
-* boosting (profiling and for further speedup)
 
 
 === ASSAR plugin ===

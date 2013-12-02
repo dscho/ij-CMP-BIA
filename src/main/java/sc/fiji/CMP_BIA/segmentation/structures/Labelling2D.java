@@ -256,9 +256,7 @@ public class Labelling2D extends Labelling {
 	@Override
 	public void showOverlapLabeling(ImagePlus img, double opticaly) {
 		if ( ! checkImgAndSegmDims(img) ) {		return;		}
-		// check if it is colour image
-		if (img.getNChannels() != 3) {		return;		}
-		
+				
 		// create LUT
 		Color clr = null;
 		Random rnd = new Random();
@@ -272,12 +270,18 @@ public class Labelling2D extends Labelling {
 			lutRGB[i][0] = (int) (clr.getRed() * (1-opticaly));
 			lutRGB[i][1] = (int) (clr.getGreen() * (1-opticaly));
 			lutRGB[i][2] = (int) (clr.getBlue() * (1-opticaly));
-		}
+		}	
+
+		// check if it is colour image
+		if (img.getType() != ImagePlus.COLOR_RGB) {		
+			Logging.logMsg("WARING: the image is not RGB image."); 
+			img.setProcessor( img.getProcessor().convertToRGB() );
+		} 
+
 		// pixel values (local)
-		int c[] = null; 
-		
+		int c[] = null; 	
 		// create colour segmentation
-		ImageProcessor ip = img.getProcessor();
+		ImageProcessor ip = img.getProcessor().convertToRGB();
 		ImageProcessor segm = new ColorProcessor(dims[0], dims[1]);
 		for (int i=0; i<data.length; i++) {
 			for (int j=0; j<data[i].length; j++) {
@@ -374,7 +378,7 @@ public class Labelling2D extends Labelling {
 	 */
 	private boolean checkImgAndSegmDims(ImagePlus img) {
 		if (dims[0]!=img.getWidth() || dims[1]!=img.getHeight() ) {
-			Logging.logMsg("Inconsistent image and labeling size!");
+			Logging.logMsg("ERROR: Inconsistent image and labeling size!");
 			return false;
 		} 
 		return true;
@@ -454,16 +458,13 @@ public class Labelling2D extends Labelling {
 		try {
 			out = new PrintWriter(path, "UTF-8");
 			// write data
-			System.out.println(strDims);
 			out.println(strDims);
-			System.out.println("DONE");
 			for (int i=0; i<data.length; i++) {
 				for (int j=0; j<data[i].length; j++) {
 					out.print( Integer.toString( data[i][j] ) + " ");
 				}
 				out.println();
 			}
-			System.out.println("DONE");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {

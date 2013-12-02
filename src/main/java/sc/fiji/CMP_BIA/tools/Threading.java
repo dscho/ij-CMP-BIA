@@ -1,5 +1,7 @@
 package sc.fiji.CMP_BIA.tools;
 
+import ij.Prefs;
+
 public class Threading {
 
 
@@ -9,7 +11,8 @@ public class Threading {
      * http://repo.or.cz/w/trakem2.git?a=blob;f=mpi/fruitfly/general/MultiThreading.java;hb=HEAD 
      */  
     public static int nbAvailableThread() {  
-        return Runtime.getRuntime().availableProcessors();   
+    	return Prefs.getThreads();
+        //return Runtime.getRuntime().availableProcessors();   
     } 
     
     /** 
