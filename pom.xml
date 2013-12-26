@@ -29,10 +29,6 @@
 
 		<!-- NB: Use given version or higher. -->
 		<imagej1.version>[1.48c,)</imagej1.version>
-		<!-- NB: Location of FIJI or ImageJ application. -->
-		<imagej.app.directory>/home.dokt/borovji3/Applications/Fiji.app</imagej.app.directory>
-		<!--  <imagej.app.directory>/home/jirka/Applications/Fiji.app</imagej.app.directory>  -->
-		<!--  <imagej.app.directory>/home.dokt/borovji3/Applications/ImageJ</imagej.app.directory> -->
 	</properties>
 
 
