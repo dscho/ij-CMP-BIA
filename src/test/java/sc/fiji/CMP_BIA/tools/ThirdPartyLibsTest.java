@@ -18,7 +18,7 @@ import org.junit.Test;
  * @author borovji3
  *
  */
-public class ThirdPartLibsTest {
+public class ThirdPartyLibsTest {
 
 	@Test
 	public void sample_LogicRegres() {
