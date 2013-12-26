@@ -1,6 +1,6 @@
 # ImageJ plugins by CMP-BIA group #
 
-home: http://fiji.sc/CMP-BIA_tools
+These plugins have their home on the [Fiji Wiki](http://fiji.sc/CMP-BIA_tools).
 
 ## CMP-BIA ##
 
