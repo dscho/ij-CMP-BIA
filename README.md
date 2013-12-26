@@ -1,15 +1,15 @@
-= ImageJ plugins by CMP-BIA group =
+# ImageJ plugins by CMP-BIA group #
 
 home: http://fiji.sc/CMP-BIA_tools
 
-== CMP-BIA ==
+## CMP-BIA ##
 
 We extend the ImageJ implementation by our java codes. This project mainly 
 contains implementation of our methods as  plugins in ImageJ (or Fiji) 
 and some other useful API for image segmentation and registration.
 
 
-== Compilation using Maven ==
+## Compilation using Maven ##
 
 It is the actual way how to compile this project, we are using building tool Maven.
 See brief info about Maven - http://en.wikipedia.org/wiki/Apache_Maven , http://maven.apache.org/
@@ -22,7 +22,7 @@ There are basically three ways how to run then Maven - compile, test, install
 Note: Download the ImageJ (http://rsbweb.nih.gov/ij) or Fiji (http://fiji.sc/Fiji) and chose related source to you Operation system (e.g Linux 64bit) or the Platform  independent
 Note2: the installation into plugin folder is done only it does not already exist so manual removing from plugin folder is needed
 
-=== Description of config file ===
+### Description of config file ###
 some important/interesting fakts:
 * the "artifactId" has to contain a '_' to be installed among plugins, otherwise it is installed in jar folder
 * "SNAPSHOT" in version marks that the actual version is "in process"
@@ -30,13 +30,13 @@ some important/interesting fakts:
 * "dependencies" specifies list of used libraries and its versions
 * "parent" defines the project parent - org.scijava - vhere some other staff is declared, e.g. how to install plugin, etc.
 
-=== Local Maven Repos ===
+### Local Maven Repos ###
 https://devcenter.heroku.com/articles/local-maven-dependencies
 example: 
 Java Library for Machine Learning from https://sourceforge.net/projects/jlml/
 -> mvn deploy:deploy-file -Durl=file:///datagrid/personal/borovec/Dropbox/Workspace/ij-CMP-BIA/repo/ -Dfile=JML.jar -DgroupId=net.sourceforge -DartifactId=jml -Dpackaging=jar -Dversion=2.7
 
-== Previous Compilation using Ant ==
+## Previous Compilation using Ant ##
 
 This is a remain after previous project structure where we used a building tool Ant. 
 This compilation information are related to the the building file build.xml.OLD (to be compiled this file has to be renamed back to build.xml)
@@ -57,7 +57,7 @@ NOTE: because the project structure have been little changed, there is no guaran
 
 
 
-== How to use ==
+## How to use ##
 
 Brief introduction how to use this API you can find in README in 'src' folder 
 
@@ -76,7 +76,7 @@ Profilling
 * Java Library for Machine Learning - http://sourceforge.net/projects/jlml
 * MAchine Learning for LanguagE Toolkit - http://mallet.cs.umass.edu
 
-== General project structure ==
+## General project structure ##
 * main - all our source codes and some external single java classes
 ** plugins - only the runnable IJ plugins are here
 ** classification - clustering and classification functions
@@ -90,27 +90,27 @@ Profilling
 * libs - external libraries mainly already compiled *.jar for JDK 1.6 and later
 * resources - resources usually for testing sections 
 
-== ImageJ plugins ==
+## ImageJ plugins ##
 
 * SLIC superpixel segmentation (only 2D images)
 * Unsupervised multi-class segmentation (only 2D images)
 * Automatic Simultaneous Segmentation And fast Registration (ASSAR)
 
-=== SLIC superpixel segmentation ===
+### SLIC superpixel segmentation ###
 
 Basically we reimplemented the powerful Simple Linear Iterative Clustering (SLIC) method in Java respectively ImageJ.
 Further we did some other improvements in clustering speed and precision.
 
-==== Reference ====
+#### Reference ####
 Radhakrishna Achanta, Appu Shaji, Kevin Smith, et al., 
 SLIC Superpixels Compared to State-of-the-art Superpixel Methods, 
 IEEE Transactions on Pattern Analysis and Machine Intelligence, 
 vol. 34, num. 11, p. 2274 - 2282, May 2012.
 
 
-=== ASSAR plugin ===
+### ASSAR plugin ###
 
-==== Abstract ====
+#### Abstract ####
 We describe an automatic method for fast registration of images with
 very different appearances. The images are jointly segmented into
 a~small number of classes, the segmented images are registered, and
@@ -128,7 +128,7 @@ are large and differ both in the local and global appearance. We show
 that our method has comparable accuracy to standard pixel-based
 registration, while being faster and more general.
 
-==== TODO ====
+#### TODO ####
 
 * implement image transformation
 * implement registration
