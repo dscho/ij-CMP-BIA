@@ -4,8 +4,8 @@ These plugins have their home on the [Fiji Wiki](http://fiji.sc/CMP-BIA_tools).
 
 ## CMP-BIA ##
 
-We extend the ImageJ implementation by our java codes. This project mainly 
-contains implementation of our methods as  plugins in ImageJ (or Fiji) 
+We extend the ImageJ implementation by our java codes. This project mainly
+contains implementation of our methods as  plugins in ImageJ (or Fiji)
 and some other useful API for image segmentation and registration.
 
 
@@ -32,13 +32,13 @@ some important/interesting fakts:
 
 ### Local Maven Repos ###
 https://devcenter.heroku.com/articles/local-maven-dependencies
-example: 
+example:
 Java Library for Machine Learning from https://sourceforge.net/projects/jlml/
 -> mvn deploy:deploy-file -Durl=file:///datagrid/personal/borovec/Dropbox/Workspace/ij-CMP-BIA/repo/ -Dfile=JML.jar -DgroupId=net.sourceforge -DartifactId=jml -Dpackaging=jar -Dversion=2.7
 
 ## Previous Compilation using Ant ##
 
-This is a remain after previous project structure where we used a building tool Ant. 
+This is a remain after previous project structure where we used a building tool Ant.
 This compilation information are related to the the building file build.xml.OLD (to be compiled this file has to be renamed back to build.xml)
 See brief info about Ant - http://en.wikipedia.org/wiki/Apache_Ant ,  http://ant.apache.org/
 
@@ -53,13 +53,13 @@ See brief info about Ant - http://en.wikipedia.org/wiki/Apache_Ant ,  http://ant
 * note we are currently developing under Sun JDK 1.6
 3) Launch executable in the ImageJ folder
 
-NOTE: because the project structure have been little changed, there is no guarante that this compilation is runnable 
+NOTE: because the project structure have been little changed, there is no guarante that this compilation is runnable
 
 
 
 ## How to use ##
 
-Brief introduction how to use this API you can find in README in 'src' folder 
+Brief introduction how to use this API you can find in README in 'src' folder
 
 Eclipse for ImageJ
 * http://imagejdocu.tudor.lu/doku.php?id=howto:plugins:the_imagej_eclipse_howto
@@ -88,7 +88,7 @@ Profilling
 * test - validation tests using JUnit templates for code testing per parts; the internal structure is similar to main folder; they can be also seen as samples how to use individual functions
 * docs - folder for some related documents
 * libs - external libraries mainly already compiled *.jar for JDK 1.6 and later
-* resources - resources usually for testing sections 
+* resources - resources usually for testing sections
 
 ## ImageJ plugins ##
 
@@ -102,9 +102,9 @@ Basically we reimplemented the powerful Simple Linear Iterative Clustering (SLIC
 Further we did some other improvements in clustering speed and precision.
 
 #### Reference ####
-Radhakrishna Achanta, Appu Shaji, Kevin Smith, et al., 
-SLIC Superpixels Compared to State-of-the-art Superpixel Methods, 
-IEEE Transactions on Pattern Analysis and Machine Intelligence, 
+Radhakrishna Achanta, Appu Shaji, Kevin Smith, et al.,
+SLIC Superpixels Compared to State-of-the-art Superpixel Methods,
+IEEE Transactions on Pattern Analysis and Machine Intelligence,
 vol. 34, num. 11, p. 2274 - 2282, May 2012.
 
 
@@ -115,14 +115,14 @@ We describe an automatic method for fast registration of images with
 very different appearances. The images are jointly segmented into
 a~small number of classes, the segmented images are registered, and
 the process is repeated.
-The segmentation calculates feature vectors on superpixels and 
+The segmentation calculates feature vectors on superpixels and
 then it finds a~softmax classifier maximizing mutual information between class
 labels in the two images. For speed, the registration considers a~sparse set
 of rectangular neighborhoods on the interfaces between
 classes. A~triangulation is created with spatial regularization handled
 by pairwise spring-like terms on the edges. The optimal transformation
 is found globally using loopy belief propagation. Multiresolution
-helps to improve speed and robustness. 
+helps to improve speed and robustness.
 Our main application is registering stained histological slices, which
 are large and differ both in the local and global appearance. We show
 that our method has comparable accuracy to standard pixel-based
