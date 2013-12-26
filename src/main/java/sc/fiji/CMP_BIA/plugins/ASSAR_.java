@@ -79,6 +79,7 @@ public class ASSAR_  implements PlugIn {
 	/**
 	 * Show the registered image pair
 	 */
+	@SuppressWarnings("unused")
 	private void showRegistration() {
 
 		// TODO
@@ -88,6 +89,7 @@ public class ASSAR_  implements PlugIn {
 	/**
 	 * Show the segmented image pair
 	 */
+	@SuppressWarnings("unused")
 	private void showSegmentations() {
 
 		// TODO - maybe use the visualization function from Segmentation plugin while it will be made

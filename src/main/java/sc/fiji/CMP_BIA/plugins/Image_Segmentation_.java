@@ -6,7 +6,6 @@ package sc.fiji.CMP_BIA.plugins;
 import java.awt.Color;
 
 import sc.fiji.CMP_BIA.segmentation.ImageSegmentation2D;
-import sc.fiji.CMP_BIA.segmentation.tools.Connectivity2D;
 import ij.ImagePlus;
 import ij.gui.GenericDialog;
 import ij.plugin.filter.PlugInFilter;

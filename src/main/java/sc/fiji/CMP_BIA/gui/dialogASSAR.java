@@ -28,7 +28,7 @@ public class dialogASSAR extends GenericDialog {
 
 	public dialogASSAR(final Frame parentWindow,
 					final ImagePlus[] imageList) {
-		super("ASSAR", null);
+		super("ASSAR", parentWindow);
 		
 		// We create a list of image titles to be used as source or target images
 		String[] titles = new String[imageList.length];
