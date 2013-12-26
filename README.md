@@ -17,7 +17,7 @@ There are basically three ways how to run then Maven - compile, test, install
 
 * compile - using command "mvn compile" compiles the source code
 * test - using command "mvn test" runs all internal tests and show the results
-* install - using command "mvn install" combines the compile + tests and also install the plugin into the ImageJ/Fiji instance. Check the location of you ImageJ/Fiji in the pom.xml file (variable imagej.app.directory).
+* install - using command "mvn install" combines the compile + tests and also install the plugin into the ImageJ/Fiji instance. If you provide the location of your ImageJ/Fiji (e.g. via -Dimagej.app.directory=/path/to/my/ImageJ.app/), the plugins will be installed there, too.
 
 Note: Download the ImageJ (http://rsbweb.nih.gov/ij) or Fiji (http://fiji.sc/Fiji) and chose related source to you Operation system (e.g Linux 64bit) or the Platform  independent
 Note2: the installation into plugin folder is done only it does not already exist so manual removing from plugin folder is needed
