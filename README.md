@@ -12,7 +12,7 @@ and some other useful API for image segmentation and registration.
 ## Compilation using Maven ##
 
 It is the actual way how to compile this project, we are using building tool Maven.
-See brief info about Maven - http://en.wikipedia.org/wiki/Apache_Maven , http://maven.apache.org/
+See [brief info](http://en.wikipedia.org/wiki/Apache_Maven) about [Maven](http://maven.apache.org/).
 There are basically three ways how to run then Maven - compile, test, install
 
 * compile - using command "mvn compile" compiles the source code
