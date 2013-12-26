@@ -37,23 +37,6 @@ example:
 Java Library for Machine Learning from https://sourceforge.net/projects/jlml/
 -> mvn deploy:deploy-file -Durl=file:///datagrid/personal/borovec/Dropbox/Workspace/ij-CMP-BIA/repo/ -Dfile=JML.jar -DgroupId=net.sourceforge -DartifactId=jml -Dpackaging=jar -Dversion=2.7
 
-## Previous Compilation using Ant ##
-
-This is a remain after previous project structure where we used a building tool Ant.
-This compilation information are related to the the building file build.xml.OLD (to be compiled this file has to be renamed back to build.xml)
-See brief info about Ant - http://en.wikipedia.org/wiki/Apache_Ant ,  http://ant.apache.org/
-
-1) ImageJ from http://rsbweb.nih.gov/ij/download.html and extract it into the same folder as this project is.
-* chose related source to you Operation system (e.g Linux 64bit) or the Platform  independent
-* actually we are developing for version 1.47o
-* alternative option can be downloading the Fiji (http://fiji.sc/Fiji) BUT in this case the path to ij.jar bas to be changed in the ImageJ-CMP-BIA/build.xml
-2) Compile and install building plugins - enter the ImageJ-CMP-BIA folder and call 'ant'
-* basically the Apache Ant is a software tool for automating software build processes (http://en.wikipedia.org/wiki/Apache_Ant)
-* note, the library ij.jar has to be located in the root of downloaded ImageJ
-* for any path changes, open the build.xml and edit it
-* note we are currently developing under Sun JDK 1.6
-3) Launch executable in the ImageJ folder
-
 NOTE: because the project structure have been little changed, there is no guarante that this compilation is runnable
 
 
