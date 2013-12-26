@@ -7,7 +7,6 @@ import jml.classification.Classifier;
 import jml.classification.LogisticRegressionMCLBFGS;
 import jml.clustering.Clustering;
 import jml.clustering.SpectralClustering;
-import jml.optimization.LBFGS;
 import jml.options.Options;
 import jml.options.SpectralClusteringOptions;
 
